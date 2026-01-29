@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import fi.haagahelia.bookstore.storage.BookRepository;
 import fi.haagahelia.bookstore.storage.Book;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
