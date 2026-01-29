@@ -2,12 +2,15 @@ package fi.haagahelia.bookstore.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 
 import fi.haagahelia.bookstore.storage.BookRepository;
 import fi.haagahelia.bookstore.storage.Book;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -37,6 +40,13 @@ public class BookController {
         bookRepository.save(book);
         return "redirect:/booklist";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable("id") Long id) {
+        bookRepository.deleteById(id);
+        return "redirect:/booklist";
+    }
+    
     
     
 
