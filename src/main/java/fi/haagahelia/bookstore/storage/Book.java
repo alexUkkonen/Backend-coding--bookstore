@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,15 +24,20 @@ public class Book {
     private String isbn;
     private BigDecimal price;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public Book() {
     }
 
-    public Book(String title, String author, int publicationYear, String isbn, BigDecimal price) {
+    public Book(String title, String author, int publicationYear, String isbn, BigDecimal price, Category category) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
         this.isbn = isbn;
         this.price = price;
+        this.category = category;
     }
 
     public Long getId() {
@@ -57,6 +64,10 @@ public class Book {
         return price;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -79,6 +90,10 @@ public class Book {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     
