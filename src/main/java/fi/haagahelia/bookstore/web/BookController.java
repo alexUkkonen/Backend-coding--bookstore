@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 
 import fi.haagahelia.bookstore.storage.BookRepository;
+import fi.haagahelia.bookstore.storage.CategoryRepository;
 import fi.haagahelia.bookstore.storage.Book;
+import fi.haagahelia.bookstore.storage.Category;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -15,21 +18,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class BookController {
 
+    private final CategoryRepository categoryRepository;
+
     private final BookRepository bookRepository;
 
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/booklist")
     public String bookList(Model model) {
         model.addAttribute("books", bookRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "bookList";
     }
 
     @GetMapping("/addbook") // Simple get mapping to add a new book
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";
     }
 
@@ -48,6 +56,7 @@ public class BookController {
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long id, Model model) {
         model.addAttribute("book", bookRepository.findById(id).orElse(null));
+        model.addAttribute("categories", categoryRepository.findAll());
         return "editbook";
     }
     
