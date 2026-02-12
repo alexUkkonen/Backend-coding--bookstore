@@ -1,5 +1,7 @@
 package fi.haagahelia.bookstore.web;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,9 @@ import fi.haagahelia.bookstore.storage.Book;
 import fi.haagahelia.bookstore.storage.Category;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 
 
@@ -58,6 +63,16 @@ public class BookController {
         model.addAttribute("book", bookRepository.findById(id).orElse(null));
         model.addAttribute("categories", categoryRepository.findAll());
         return "editbook";
+    }
+    
+    @GetMapping("/books")
+    public @ResponseBody List<Book> getBooks() {
+        return (List<Book>) bookRepository.findAll();   
+    }
+
+    @GetMapping("/book/{id}")
+        public @ResponseBody Book getBookById(@PathVariable("id") Long id) {
+            return bookRepository.findById(id).orElse(null);
     }
     
     
