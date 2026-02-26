@@ -10,10 +10,8 @@ import org.springframework.ui.Model;
 import fi.haagahelia.bookstore.storage.BookRepository;
 import fi.haagahelia.bookstore.storage.CategoryRepository;
 import fi.haagahelia.bookstore.storage.Book;
-import fi.haagahelia.bookstore.storage.Category;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 

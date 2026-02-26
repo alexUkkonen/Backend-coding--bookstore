@@ -1,7 +1,6 @@
-package service;
+package fi.haagahelia.bookstore.service;
 
 import fi.haagahelia.bookstore.storage.AppUser;
-import fi.haagahelia.bookstore.sotrage.AppUserRepository;
 import fi.haagahelia.bookstore.storage.AppUserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
