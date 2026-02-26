@@ -1,12 +1,30 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org", xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 <head>
     <title>Bookstore</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <h1>My Bookstore</h1>
+<div class="container mt-3">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+        
+        <h1 class="m-0">My Bookstore</h1>
+        
+        <div class="d-flex align-items-center">
+            
+            <span class="me-3 text-muted" sec:authorize="isAuthenticated()">
+                <b sec:authentication="name">User</b>
+            </span>
+
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+            </form>
+            
+        </div>
+    </div>
+    
+    </div>
 
     <table class="table table-striped" border="1">
     <tr>
@@ -16,7 +34,7 @@
         <th>Category</th>
         <th>ISBN</th>
         <th>Price</th>
-        <th></th> </tr>
+        <th sec:authorize="hasRole('ADMIN')">Actions</th> </tr>
     
     <tr th:each="book : ${books}">
         <td th:text="${book.title}"></td>
@@ -27,13 +45,13 @@
         <td th:text="${book.price}"></td>
         
         <td>
-            <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
-            <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
+            <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary" sec:authorize="hasRole('ADMIN')">Edit</a>
+            <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger" sec:authorize="hasRole('ADMIN')">Delete</a>
         </td>
     </tr>
 </table>
-
-    <a href="/addbook" class="btn btn-success">Add a new book</a>
-
+    <div sec:authorize="hasRole('ADMIN')">
+        <a href="/addbook" class="btn btn-success">Add a new book</a>
+    </div>
 </body>
 </html>
